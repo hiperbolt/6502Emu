@@ -5,17 +5,17 @@ class CPU:
     def __init__(self) -> None:
         CPU.reset(self)
 
-    def reset(self): 
-        self.PC = 0     # Program Counter Register
+    def reset(self):        # Hard-coded types because python handles types in an annoying way.
+        self.PC = int(0)    # Program Counter Register 
         
-        self.SP = 256  # Initialize Stack Pointer
+        self.SP = int(256)  # Initialize Stack Pointer
 
-        self.A = 0      # Acumulator Register
+        self.A = int(0)     # Acumulator Register
 
-        self.X = 0      # X register
-        self.Y = 0      # Y Register
+        self.X = int(0)     # X register
+        self.Y = int(0)     # Y Register
 
-        self.PS = 0     # 0 doesn't have a flag value
+        self.PS = int(0)    # 0 doesn't have a flag value
 
         """
         Each flag has a single bit within the register. Negative flag is binary 10000000 -> decimal 128

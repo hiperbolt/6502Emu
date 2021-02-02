@@ -20,11 +20,38 @@ Addressing Modes:
 
 ### LOAD/STORE OPERATIONS
 
-def LDA(mode, address):      # Load Accumulator - 8 moded / Sets either N or Z flag
-    if mode == "Immediate": 
-        c.A = m.get(address)
+def LDA(mode, arg):      # Load Accumulator - 8 moded / Sets either N or Z flag
+    if mode == "Immediate":
+        constant = arg
+        c.A = constant
     
+    if mode == "Zero Page":
+        eightbitaddress = arg
+        c.A = m.get(eightbitaddress)
+    
+    if mode == "Zero Page, X":
+        eightbitaddress = arg
+        c.A = m.get(eightbitaddress) + c.X
 
+    if mode == "Absolute":
+        fulladdress = arg
+        c.A = m.get(fulladdress)
+
+    if mode == "Absolute, X":
+        fulladdress = arg
+        c.A = m.get(fulladdress) + c.X
+    
+    if mode == "Absolute, Y":
+        fulladdress = arg
+        c.A = m.get(fulladdress) + c.Y
+
+    if mode == "Indirect, X":
+        pass
+
+    if mode == "Indirect, Y":
+        pass
+
+    ### Setting flags
     if c.A == 0:    # If Accumulator is 0, set Z flag
         c.setFlag('Z')
 
@@ -32,11 +59,63 @@ def LDA(mode, address):      # Load Accumulator - 8 moded / Sets either N or Z f
         c.setFlag('N')
 
 
-def LDX(mode):      # Load X Register - 5 moded / Sets either N or Z flag
-    pass
+def LDX(mode, arg):      # Load X Register - 5 moded / Sets either N or Z flag
+    if mode == "Immediate":
+        constant = arg
+        c.X = constant
+    
+    if mode == "Zero Page":
+        eightbitaddress = arg
+        c.X = m.get(eightbitaddress)
 
-def LDY(mode):      # Load Y Register - 5 moded / Sets either N or Z flag
-    pass
+    if mode == "Zero Page, Y":
+        eightbitaddress = arg
+        c.X = m.get(eightbitaddress) + c.Y
+
+    if mode == "Absolute":
+        fulladdress = arg
+        c.X = m.get(fulladdress)
+
+    if mode == "Absolute, Y":
+        fulladdress = arg
+        c.X = m.get(fulladdress) + c.Y
+    
+
+    ### Settings flags
+    if c.X == 0:    # If Accumulator is 0, set Z flag
+        c.setFlag('Z')
+
+    if (int(format(c.X, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
+        c.setFlag('N')
+
+def LDY(mode, arg):      # Load Y Register - 5 moded / Sets either N or Z flag
+    if mode == "Immediate":
+        constant = arg
+        c.Y = constant
+    
+    if mode == "Zero Page":
+        eightbitaddress = arg
+        c.Y = m.get(eightbitaddress)
+
+    if mode == "Zero Page, X":
+        eightbitaddress = arg
+        c.Y = m.get(eightbitaddress) + c.X
+
+    if mode == "Absolute":
+        fulladdress = arg
+        c.Y = m.get(fulladdress)
+
+    if mode == "Absolute, Y":
+        fulladdress = arg
+        c.Y = m.get(fulladdress) + c.X
+    
+
+    ### Settings flags
+    if c.Y == 0:    # If Accumulator is 0, set Z flag
+        c.setFlag('Z')
+
+    if (int(format(c.Y, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
+        c.setFlag('N')
 
 def STA(mode):      # Store Accumulator - 8 moded
     pass
