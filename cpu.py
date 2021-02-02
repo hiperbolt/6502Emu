@@ -8,7 +8,7 @@ class CPU:
     def reset(self): 
         self.PC = 0     # Program Counter Register
         
-        self.SP = 0xff  # Initialize Stack Pointer
+        self.SP = 256  # Initialize Stack Pointer
 
         self.A = 0      # Acumulator Register
 
