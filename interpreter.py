@@ -6,10 +6,31 @@ m = memory.Mem()
 
 logging = True
 
+'''
+Addressing Modes:
+
+'Implicit' - no further operand needs to be specified
+'Accumulator' - option to operate directly upon the accumulator
+'Immediate' - Immediate addressing allows the programmer to directly specify an 8 bit constant within the instruction.
+
+
+
+
+'''
+
 ### LOAD/STORE OPERATIONS
 
-def LDA(mode):      # Load Accumulator - 8 moded / Sets either N or Z flag
-    pass
+def LDA(mode, address):      # Load Accumulator - 8 moded / Sets either N or Z flag
+    if mode == "Immediate": 
+        c.A = m.get(address)
+    
+
+    if c.A == 0:    # If Accumulator is 0, set Z flag
+        c.setFlag('Z')
+
+    if (int(format(c.A, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
+        c.setFlag('N')
+
 
 def LDX(mode):      # Load X Register - 5 moded / Sets either N or Z flag
     pass
@@ -50,17 +71,17 @@ def CLV():      # Clear Overflow flag - Implicit
     if logging == True:
         print('Clear Overflow flag called')
 
-def SEC(flag):      # Set Carry flag - Implicit. Recieves flag as argument (Listing on cpu.py)
+def SEC():      # Set Carry flag - Implicit. 
     c.setFlag('C')
     if logging == True:
         print('Set Carry flag called')
 
-def SED(flag):      # Set Decimal mode flag - Implicit. Recieves flag as argument (Listing on cpu.py)
-    c.setFlag('C')
+def SED():      # Set Decimal mode flag - Implicit. 
+    c.setFlag('D')
     if logging == True:
-        print('Set Carry flag called')
+        print('Set Decimal mode flag called')
 
-def SEI(flag):      # Set Interrupt Disable flag - Implicit. Recieves flag as argument (Listing on cpu.py)
+def SEI():      # Set Interrupt Disable flag - Implicit. 
     c.setFlag('I')
     if logging == True:
         print('Set Interrupt disable called')

@@ -15,7 +15,7 @@ class CPU:
         self.X = 0      # X register
         self.Y = 0      # Y Register
 
-        self.PS = 32     # Set Processor Status to 32 (Only value that doesn't have a meaning.)
+        self.PS = 0     # 0 doesn't have a flag value
 
         """
         Each flag has a single bit within the register. Negative flag is binary 10000000 -> decimal 128
