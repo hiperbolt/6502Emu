@@ -8,7 +8,7 @@ class CPU:
     def reset(self):        # Hard-coded types because python handles types in an annoying way.
         self.PC = int(0)    # Program Counter Register 
         
-        self.SP = int(256)  # Initialize Stack Pointer
+        self.SP = int(256)  # Initialize Stack Pointer (From 256-511)
 
         self.A = int(0)     # Acumulator Register
 

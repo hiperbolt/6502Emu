@@ -1,0 +1,76 @@
+INSTRUCTIONS IMPLEMENTATION:
+
+## LOAD/STORE OPERATIONS
+
+- LDA [] - Missing Indirect modes
+- LDX [x]
+- LDY [x]
+- STA [] - Missing indirect modes
+- STX [x]
+- STY [x]
+
+## REGISTER TRANSFERS
+
+- TAX [x]
+- TAY [x]
+- TXA [x]
+- TYA [x]
+
+## STACK OPERATIONS
+
+- TSX [X]
+- TXS [X]
+- PHA [] - Not implemented
+- PHP [] - Not implemented
+- PLA [] - Not implemented	
+- PLP [] - Not implemented
+
+## Logical
+- AND [] 	
+- EOR [] 	
+- ORA []
+- BIT [] 	
+## Arithmetic
+- ADC [] 
+- SBC [] 
+- CMP [] 
+- CPX [] 
+- CPY [] 
+## Increments & Decrements
+- INC []
+- INX [] 	
+- INY [] 	
+- DEC []
+- DEX [] 	
+- DEY [] 	
+## Shifts
+- ASL []
+- LSR [] 	
+- ROL [] 	
+- ROR [] 	
+## Jumps & Calls
+- JMP [] 	 
+- JSR []
+- RTS []
+## Branches
+- BCC [] 	 	 
+- BCS []
+- BEQ []
+- BMI []
+- BNE []
+- BPL []
+- BVC [] 	 	 
+- BVS [] 
+## Status Flag Changes
+- CLC [x]
+- CLD [x]
+- CLI [x] 
+- CLV [x] 
+- SEC [x] 	
+- SED [x] 
+- SEI [x] 
+
+## System Functions
+- BRK []
+- NOP [x]	 
+- RTI []
