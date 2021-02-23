@@ -196,42 +196,41 @@ def stackPull(stackPointer=c.SP) -> int:
     return int(m.get(stackPointer))
 
 
-def TSX(arg):      # Transfer Stack Pointer Content to X - Implicit - Sets N or Z
-    c.X = stackPull()
+def TSX(arg):      # Transfer Stack Pointer to X - Implicit - Sets N or Z
+    c.X = c.SP
 
     ### Setting flags
-    if c.Y == 0:    # If Accumulator is 0, set Z flag
+    if c.X == 0:    # If Accumulator is 0, set Z flag
         c.setFlag('Z')
 
-    if (int(format(c.Y, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
+    if (int(format(c.X, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
         c.setFlag('N')
 
 
 def TXS(arg):   # Transfer X to Stack Pointer - Implicit
-    stackPush(c.X)
-
-    ### Setting flags
-    if c.Y == 0:    # If Accumulator is 0, set Z flag
-        c.setFlag('Z')
-
-    if (int(format(c.Y, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
-        c.setFlag('N')
-
+    c.SP = c.X
 
 def PHA(arg):
-    pass 
+    stackPush(c.A)
 
 
 def PHP(arg):
-    pass 
+    stackPush(c.PS)
 
 
 def PLA(arg):
-    pass 
+    c.A = stackPull()
+
+    ### Setting flags
+    if c.X == 0:    # If Accumulator is 0, set Z flag
+        c.setFlag('Z')
+
+    if (int(format(c.X, '08b')) & 0b1000000):   # If 0b1000000 evaluates to true (If 7th bit is set, as per instruction set) set N flag
+        c.setFlag('N')
 
 
 def PLP(arg):
-    pass 
+    c.PS = stackPull() 
 
 
 
