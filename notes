@@ -20,14 +20,14 @@ INSTRUCTIONS IMPLEMENTATION:
 
 - TSX [X]
 - TXS [X]
-- PHA [] - Not implemented
-- PHP [] - Not implemented
-- PLA [] - Not implemented	
-- PLP [] - Not implemented
+- PHA [X] 
+- PHP [X] 
+- PLA [X] 	
+- PLP [X] 
 
 ## Logical
 - AND [] 	
-- EOR [] 	
+- EOR []
 - ORA []
 - BIT [] 	
 ## Arithmetic
