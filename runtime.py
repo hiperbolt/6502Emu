@@ -33,7 +33,25 @@ def reset():
     print("RESET: Done.")
     
 
-customCalls = { 'peekMem', 'exit', 'reset'}
+def peekCpu():
+    print('Program Counter: ' + str(c.PC))
+    print('\nStack Pointer: ' + str(c.SP))
+    print('\nRegisters:')
+    print('\n   A: ' + str(c.A))
+    print('\n   Y: ' + str(c.Y))
+    print('\n   X: ' + str(c.X))
+    print('\nFlags: '+ str(c.getFlags()))
+
+
+def poke(object, *args):
+    if object == 'Cpu':
+        pass
+    elif object == 'Mem':
+        pass
+    else:
+        print("ERROR: Invalid object.\nProper usage: poke [CPU / Mem] *args.") 
+
+customCalls = { 'peekMem', 'exit', 'reset', 'peekCpu', 'poke'}
 
 
 if not (len(sys.argv) > 1):     #### Interpreted mode
@@ -48,10 +66,18 @@ if not (len(sys.argv) > 1):     #### Interpreted mode
                 try:
                     peekMem(int(command[1]))
                 except IndexError:
-                    print("ERROR: Missing arguments.")
+                    print("ERROR: Missing arguments.\nProper usage: peekMem [address].")
             if command[0] == 'reset':
                 reset()
-
+            
+            if command[0] == 'peekCpu':
+                peekCpu()
+            
+            if command[0] == 'poke':
+                try:
+                    poke(command[1])
+                except IndexError:
+                    print("ERROR: Missing arguments.\nProper usage: poke [object] *args.")
         else:
             inst = ('i.' + command[0])
             try:

@@ -234,7 +234,36 @@ class Instructions:
     def PLP(self):
         self.c.PS = self.stackPull() 
 
+    #### LOGICAL
 
+    def AND(self, mode):
+        pass
+
+    def EOR(self):
+        pass
+
+    def ORA(self):
+        pass
+
+    def BIT(self):
+        pass
+    
+    #### ARITHMETIC
+    def ADC(self):
+        pass
+
+    def SBC(self):
+        pass
+
+    def CMP(self):
+        pass
+
+    def CPX(self):
+        pass
+
+    def CPY(self):
+        pass
+ 
 
     #### STATUS FLAG CHANGES
 

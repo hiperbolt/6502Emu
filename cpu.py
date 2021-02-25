@@ -20,7 +20,7 @@ class CPU:
         """
         Each flag has a single bit within the register. Negative flag is binary 10000000 -> decimal 128
         Using decimal and converting to binary when needed.
-        """
+                                                                                                    """
         self.PSFlags = {
             'N': 128,   # Negative
             'V': 64,    # Overflow
@@ -41,5 +41,29 @@ class CPU:
     def clearFlags(self):
         self.PS = 32    # Resets Processor Status Register
 
-    #def getFlags(self):
-    #    self.PS
+    def getFlags(self):
+        binaryPS = format(self.PS, '08b')
+
+        flagMap = {
+             0 : 'N',   # Negative
+             1 : 'V',   # Overflow
+             3 : 'B',   # Break Command
+             4 : 'D',   # Decimal Mode
+             5 : 'I',   # Interrupt Disable
+             6 : 'Z',   # Zero
+             7 : 'C'    # Carry
+        }  
+
+        """
+            Yes I did this instead of storing everything as binary representation and converting it back when needed because I hate
+            the way Python handles binary. I rather store everything as int's and int representation of bytes.
+             May eventually be changed to be more coherent. For now the philosofy is "int unless explicitly needed otherwise".
+                                                                                                                                """
+
+        flagList = []
+
+        for i in range(8):
+            if int(binaryPS[i]) == 1:
+                flagList.append(flagMap[i])
+        
+        return flagList
