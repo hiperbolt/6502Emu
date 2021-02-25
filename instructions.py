@@ -148,7 +148,7 @@ class Instructions:
 
         if mode == "Absolute":
             fulladdress = arg
-            self.m.put(fulladdress, int(self.c.Y))
+            self.m.put(fulladdress, int(self.c.X))
 
 
     def STY(self, mode, arg):      # Store Y Register - 3 moded
