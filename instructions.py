@@ -148,7 +148,7 @@ class Instructions:
 
         if mode == "Absolute":
             fulladdress = arg
-            self.m.put(fulladdress)
+            self.m.put(fulladdress, int(self.c.Y))
 
 
     def STY(self, mode, arg):      # Store Y Register - 3 moded
@@ -162,7 +162,7 @@ class Instructions:
 
         if mode == "Absolute":
             fulladdress = arg
-            self.m.put(fulladdress)
+            self.m.put(fulladdress, int(self.c.Y))
 
     #### REGISTER TRANSFERS
 
@@ -192,10 +192,13 @@ class Instructions:
 
     def stackPull(self) -> int:
         self.c.SP += 1
-        return int(self.m.get(self.c.SP))
+        toReturn = int(self.m.get(self.c.SP))
+        self.m.put(self.c.SP, int(0))
+        print(toReturn) #Temporary fix
+        return toReturn
 
 
-    def TSX(self, arg):      # Transfer Stack Pointer to X - Implicit - Sets N or Z
+    def TSX(self):      # Transfer Stack Pointer to X - Implicit - Sets N or Z
         self.c.X = self.c.SP
 
         ### Setting flags
@@ -206,19 +209,19 @@ class Instructions:
             self.c.setFlag('N')
 
 
-    def TXS(self, arg):   # Transfer X to Stack Pointer - Implicit
+    def TXS(self):   # Transfer X to Stack Pointer - Implicit
         self.c.SP = self.c.X
 
-    def PHA(self, arg):
-        stackPush(self.c.A)
+    def PHA(self):
+        self.stackPush(self.c.A)
 
 
-    def PHP(self, arg):
-        stackPush(self.c.PS)
+    def PHP(self):
+        self.stackPush(self.c.PS)
 
 
-    def PLA(self, arg):
-        self.c.A = stackPull()
+    def PLA(self):
+        self.c.A = self.stackPull()
 
         ### Setting flags
         if self.c.X == 0:    # If Accumulator is 0, set Z flag
@@ -228,8 +231,8 @@ class Instructions:
             self.c.setFlag('N')
 
 
-    def PLP(self, arg):
-        self.c.PS = stackPull() 
+    def PLP(self):
+        self.c.PS = self.stackPull() 
 
 
 

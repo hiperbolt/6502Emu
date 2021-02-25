@@ -1,5 +1,6 @@
 import argparse
 import sys
+import re
 
 import cpu
 import memory
@@ -21,24 +22,46 @@ def exitShell():
     exit()
 
 def peekMem(address):
-    print("Byte at address" + str(address) + ": "+ str(m.get(address)))
+    print("Byte at address " + str(address) + ": "+ str(m.get(address)))
 
-customCallsMap = { 'peekMem' : peekMem, 'exit' : exitShell}
+
+def reset():
+    m.reset()
+    print("RESET: Memory flushed.")
+    c.reset()
+    print("RESET: Registers flushed.")
+    print("RESET: Done.")
+    
+
+customCalls = { 'peekMem', 'exit', 'reset'}
 
 
 if not (len(sys.argv) > 1):     #### Interpreted mode
     print("Welcome to hiperbolt's 6502ad Emu interactive mode.\n")
     while 1:
-        command = input('> ')
-        if command in customCallsMap:
-            if command == 'exit':
+        command = input('> ').split()
+
+        if command[0] in customCalls:
+            if command[0] == 'exit':
                 exitShell()
+            if command[0] == 'peekMem':
+                try:
+                    peekMem(int(command[1]))
+                except IndexError:
+                    print("ERROR: Missing arguments.")
+            if command[0] == 'reset':
+                reset()
 
         else:
-            inst = ('i.' + command)
-            exec(str(inst))
-
-
+            inst = ('i.' + command[0])
+            try:
+                exec(str(inst))
+            except AttributeError:
+                print("ERROR: Command does not exist.")
+            #except SyntaxError:
+            #    print("ERROR: Bad syntax.")
+            #except TypeError:
+            #    print("ERROR: Bad arguments.")
 
 
 

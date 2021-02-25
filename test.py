@@ -4,10 +4,16 @@ import memory
 c = cpu.CPU()
 m = memory.Mem()
 
-def stackPush(value):
-    m.put(c.SP, int(value))
-    c.SP -= 1
+def funcReturns(x) -> int:
+    return x+1
 
-print(c.SP)
-stackPush(12)
-print(c.SP)
+def funcDoes(x, y) -> None:
+    a = 1+5
+    print('')
+    
+
+if funcReturns(1):
+    print("1")
+
+if funcDoes(1, 2):
+    print("oh nos")
